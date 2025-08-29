@@ -13,3 +13,13 @@ body {
     background-color: #212121; /* Fundo muito escuro para maior conforto noturno */
     color: #e0e0e0; /* Texto claro para bom contraste */
 }
+
+.container_into {
+    margin-bottom: 20px;
+}
+
+input {
+    display: block;
+    margin: 5px 0;
+    padding: 8px;
+}
