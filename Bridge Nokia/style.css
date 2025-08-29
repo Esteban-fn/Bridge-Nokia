@@ -1,0 +1,15 @@
+:root{
+    --colorPrimary: #212121;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding-top: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    background-color: #212121; /* Fundo muito escuro para maior conforto noturno */
+    color: #e0e0e0; /* Texto claro para bom contraste */
+}

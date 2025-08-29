@@ -25,12 +25,25 @@ Ao clicar em "Gerar Script", o sistema monta os comandos e mostra na tela ou exp
 Exemplo de ideia inicial em HTML + JS (bem simples):
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <title>Gerador de Script ONT</title>
+  <title>Bridge Nokia</title>
 </head>
+
 <body>
   <h2>Provisionamento de ONT - Gerador de Script</h2>
+
+
+    <div class="container">
+        <div class="container_into">
+            <p class="titulo">POSIÇÃO DO CLIENTE</p>    
+            <form id="">
+                <input type="text" id="inputSlot" placeholder="Slot GPON">
+                <input type="text" id="inputGpon" placeholder="Porta PON">
+                <input type="text" id="inputIndex" placeholder="Posição da ONT">
+            </form>
+        </div>
   
   <form id="formONT">
     <label>Descrição 1 (Cliente):</label>
@@ -88,3 +101,73 @@ ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-8-2-35::::PARAMNAME=InternetGatewayDev
 Se quiser além de gerar o script, também executar direto na OLT, dá pra usar Python com Paramiko (biblioteca de SSH).
 
 O sistema pegaria os dados, montaria o script, e já mandaria para a OLT por SSH automaticamente.
+
+
+
+COMANDO BRIDGE CRT:
+
+
+PROVISIONAMENTO BRIDGE ONT:
+
+DESPROVISIONAR ONT (COMANDOS SSH - UM POR UM)
+configure equipment ont interface 1/1/3/16/2 admin-state down
+configure equipment ont no interface 1/1/3/16/2
+
+Digitar: exit all (apertar enter)
+
+PROVISIONAR ONT
+configure equipment ont interface 1/1/3/16/2 sw-ver-pland auto desc1 ESAB_CONSTRUCAO_CIVIL_E_IMOBILIARIA_LTDA desc2 esabcltda sernum ALCL:FCD53192 subslocid WILDCARD fec-up disable optics-hist enable sw-dnload-version disabled voip-allowed veip log-auth-pwd plain:** pland-cfgfile1 auto dnload-cfgfile1 auto planned-us-rate nominal-line-rate
+
+configure equipment ont interface 1/1/3/16/2 admin-state up
+
+Porta Bridge
+
+configure equipment ont slot 1/1/3/16/2/1 planned-card-type ethernet plndnumdataports 4 plndnumvoiceports 0 admin-state up
+
+configure qos interface 1/1/3/16/2/1/2 upstream-queue 0 bandwidth-profile name:HSI_1G_UP (número após 1 porta)
+configure interface port uni:1/1/3/16/2/1/2 admin-up
+configure bridge port 1/1/3/16/2/1/2 max-unicast-mac 12 max-committed-mac 1		
+configure bridge port 1/1/3/16/2/1/2 vlan-id 2710
+configure bridge port 1/1/3/16/2/1/2 pvid 2710
+
+
+
+Comando TL1 para colocar a porta LAN em modo Bridge na LAN porta 1 
+
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-3-16-2-30::::PARAMNAME=InternetGatewayDevice.X_ASB_COM_EthPort.EthPort.2.isTr069Domain,PARAMVALUE=false;
+
+OBS:
+upstream-queue 5 para voz 0 para conexão
+
+CONSULTAR
+show vlan bridge-port-fdb 1/1/3/16/2/1/1 - Verificar se pegou MAC
+info configure bridge port 1/1/3/16/2/1/1 flat - Verificar VLAN
+
+
+FIM
+====================================
+
+PROVISIONAMENTO TELEFONE ONT:
+
+configure qos interface 1/1/4/12/26/1/4 upstream-queue 5 bandwidth-profile name:HSI_1G_UP 
+configure interface port uni:1/1/4/12/26/1/4 admin-up		
+configure bridge port 1/1/4/12/26/1/4 max-unicast-mac 12  max-committed-mac 1		
+configure bridge port 1/1/4/12/26/1/4 vlan-id 300
+configure bridge port 1/1/4/12/26/1/4 pvid 300
+
+BRIDEGE PARA INTERNET 
+
+configure qos interface 1/1/4/12/26/1/1 upstream-queue 0 bandwidth-profile name:HSI_1G_UP
+configure interface port uni:1/1/4/12/26/1/1 admin-up		
+configure bridge port 1/1/4/12/26/1/1 max-unicast-mac 12  max-committed-mac 1		
+configure bridge port 1/1/4/12/26/1/1 vlan-id 2800
+configure bridge port 1/1/4/12/26/1/1 pvid 2800
+
+TL1 HABILITAR O BRIDGE 
+ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-4-12-26-32::::PARAMNAME=InternetGatewayDevice.X_ASB_COM_EthPort.EthPort.4.isTr069Domain,PARAMVALUE=false;
+
+OBS: EthPort.1.isTr069Domain  PORTA QUE FICARA O BRIDGE 
+HGUTR069SPARAM-1-1-4-12-26-31   POSIÇÃO QUE FICARA O BRIDGE, SO PODE TER 1 EM CADA POSIÇÃO
+
+FIM
+====================================
