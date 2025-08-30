@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Bridge Nokia</title>
+    <title>Bridge ONT Nokia</title>
 </head>
 
 <body>
@@ -17,8 +17,11 @@
                 <input type="text" id="inputSlot" placeholder="Slot GPON">
                 <input type="text" id="inputGpon" placeholder="Porta PON">
                 <input type="text" id="inputIndex" placeholder="Posição da ONT">
+                <input type="text" id="inputCardType" placeholder="Card Type">
+                <input type="text" id="inputLan" placeholder="Porta LAN">
             </form>
 </div>
+
 
 <!-- DESC 1 -->
 <div class="container_into">
@@ -47,15 +50,29 @@
 </div>
 
 
-<!-- CARD TYPE -->
-<div class="container_into">
-            <p class="titulo">CARD TYPE (planned-card-type)</p>    
-            <form id="">
-                <input type="text" id="inputSernum" placeholder="card-type (1 ou 14)">
-            </form>           
-</div>
+<!-- VLAN -->
+    <div class="container">
+        <div class="container_into">
+        <p class="titulo">VLAN UTILIZADA</p>
+        <form id="codeForm2">
+            <select name="VLAN" id="ProvVLAN">
+                <option value="2800">VLAN de NOVA ANDRADINA - MS</option>
+                <option value="2710">VLAN de MANDAGUAÇU - PR</option>
+                <option value="2820">VLAN de NOVA ESPERANÇA - PR</option>
+                <option value="2714">VLAN de TERRA RICA - PR</option>
+                <option value="2821">VLAN de PAIÇANDU - PR</option>
+                <option value="2700">VLAN de PARANAVAÍ - PR</option>
+                <option value="2760">VLAN de MARINGÁ - PR</option>
+                <option value="3050">VLAN de NOVA ALIANÇA - PR</option>
+                <option value="2750">VLAN de DOURADOS - MS</option>
+                <option value="2869">VLAN de IVINHEMA - MS</option>
+                <option value="2825">VLAN de BAYTAPORÃ - MS</option>
+            </select> 
+        </form>
+        </div>
 
+
+<button onclick="gerarComandos()">Gerar Comandos</button>
 
 </body>
-
 </html>
