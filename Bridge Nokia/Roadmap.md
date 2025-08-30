@@ -1,6 +1,7 @@
 Sistema Web Simples (HTML + CSS + JS) - Bridge ONT Nokia:
 
-Comando do Bridge para INTERNET (TUDO QUE ESTÁ EM VERDE SERÁ ALTERADO):
+====================================================================================================================================================
+COMANDO BRIDGE PARA INTERNET (TUDO QUE ESTÁ EM VERDE SERÁ ALTERADO):
 
 DESPROVISIONAR ONT:
 configure equipment ont interface 1/1/`3/16/2` admin-state down
@@ -24,3 +25,17 @@ configure bridge port 1/1/`3/16/2/1/2` pvid `2710`
 Comando TL1 para colocar a porta LAN em modo Bridge na LAN:
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-`3-16-2-30`::::PARAMNAME=InternetGatewayDevice.X_ASB_COM_EthPort.EthPort.`2`.isTr069Domain,PARAMVALUE=false;
 
+====================================================================================================================================================
+O QUE SERÁ ALTERADO:
+
+Slot - Pon - Posição - desc1 - desc2 - sernum - card-type - porta LAN (Opção de escolha 1, 2, 3 e 4).
+
+upstream-queue: (Internet → upstream-queue 0 / Voz → upstream-queue 5).
+
+vlan (Opção de escolha, cidades...)
+
+Linha TL1: 
+3-16-2-30 -> O 30 Será interessante validar, mas, acredito que ele possa ser o padrão.
+
+EthPort.EthPort.2 -> Colocar no lugar do 2 a porta LAN do Bridge.
+====================================================================================================================================================
