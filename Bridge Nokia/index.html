@@ -10,7 +10,6 @@
 
 <body>
 
-<!-- POSIÇAO DO CLIENTE -->
 <div class="container_into">
             <p class="titulo">POSIÇÃO DO CLIENTE</p>    
             <form id="">
@@ -22,8 +21,6 @@
             </form>
 </div>
 
-
-<!-- DESC 1 -->
 <div class="container_into">
             <p class="titulo">DESCRIÇAO 1 (desc1)</p>    
             <form id="">
@@ -31,8 +28,6 @@
             </form>           
 </div>
           
-
-<!-- DESC 2 -->
 <div class="container_into">
             <p class="titulo">DESCRIÇAO 2 (desc2)</p>    
             <form id="">
@@ -40,8 +35,6 @@
             </form>           
 </div>
 
-
-<!-- SERNUM -->
 <div class="container_into">
             <p class="titulo">S°NUMBER (sernum)</p>    
             <form id="">
@@ -49,12 +42,9 @@
             </form>           
 </div>
 
-
-<!-- VLAN -->
-    <div class="container">
-        <div class="container_into">
+<div class="container_into">
         <p class="titulo">VLAN UTILIZADA</p>
-        <form id="codeForm2">
+        <form id="">
             <select name="VLAN" id="ProvVLAN">
                 <option value="2800">VLAN de NOVA ANDRADINA - MS</option>
                 <option value="2710">VLAN de MANDAGUAÇU - PR</option>
@@ -71,8 +61,10 @@
         </form>
         </div>
 
-
 <button onclick="gerarComandos()">Gerar Comandos</button>
+<br><br>
+
+<textarea id="output" readonly placeholder="Os comandos gerados aparecerão aqui..."></textarea>
 
 </body>
 </html>
