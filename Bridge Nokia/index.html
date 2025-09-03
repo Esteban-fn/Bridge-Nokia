@@ -1,5 +1,5 @@
-<!DOCTYPE html5>
-<html lang="pt-BR>
+<!DOCTYPE html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -11,60 +11,68 @@
 <body>
 
 <div class="container_into">
-            <p class="titulo">POSIÇÃO DO CLIENTE</p>    
-            <form id="">
-                <input type="text" id="inputSlot" placeholder="Slot GPON">
-                <input type="text" id="inputGpon" placeholder="Porta PON">
-                <input type="text" id="inputIndex" placeholder="Posição da ONT">
-                <input type="text" id="inputCardType" placeholder="Card Type">
-                <input type="text" id="inputLan" placeholder="Porta LAN">
-            </form>
-</div>
+    <p class="titulo">POSIÇÃO DO CLIENTE</p>    
+    <form id="formComandos">
+        <input type="text" id="inputSlot" placeholder="Slot GPON">
+        <input type="text" id="inputGpon" placeholder="Porta PON">
+        <input type="text" id="inputIndex" placeholder="Posição da ONT">
+        
+        <p class="titulo">PORTA LAN</p>
+        <select name="PortaLAN" id="portaLan">
+            <option value="1">LAN 1</option>
+            <option value="2">LAN 2</option>
+            <option value="3">LAN 3</option>
+            <option value="4">LAN 4</option>
+        </select>
 
-<div class="container_into">
-            <p class="titulo">DESCRIÇAO 1 (desc1)</p>    
-            <form id="">
-                <input type="text" id="inputDesc1" placeholder="Nome Completo do Cliente">
-            </form>           
-</div>
-          
-<div class="container_into">
-            <p class="titulo">DESCRIÇAO 2 (desc2)</p>    
-            <form id="">
-                <input type="text" id="inputDesc2" placeholder="CTO ou PPPoE">
-            </form>           
-</div>
+        <p class="titulo">Card Type</p>
+        <select name="CardType" id="CardType">
+            <option value="1">Card 1</option>
+            <option value="14">Card 14</option>
+        </select>
 
-<div class="container_into">
-            <p class="titulo">S°NUMBER (sernum)</p>    
-            <form id="">
-                <input type="text" id="inputSernum" placeholder="ALCL da ONT">
-            </form>           
-</div>
+        <p class="titulo">DESCRIÇAO 1 (desc1)</p>    
+        <input type="text" id="inputDesc1" placeholder="Nome Completo do Cliente">
 
-<div class="container_into">
+        <p class="titulo">DESCRIÇAO 2 (desc2)</p>    
+        <input type="text" id="inputDesc2" placeholder="CTO ou PPPoE">
+
+        <p class="titulo">S°NUMBER (sernum)</p>    
+        <input type="text" id="inputSernum" placeholder="ALCL da ONT">
+
         <p class="titulo">VLAN UTILIZADA</p>
-        <form id="">
-            <select name="VLAN" id="ProvVLAN">
-                <option value="2800">VLAN de NOVA ANDRADINA - MS</option>
-                <option value="2710">VLAN de MANDAGUAÇU - PR</option>
-                <option value="2820">VLAN de NOVA ESPERANÇA - PR</option>
-                <option value="2714">VLAN de TERRA RICA - PR</option>
-                <option value="2821">VLAN de PAIÇANDU - PR</option>
-                <option value="2700">VLAN de PARANAVAÍ - PR</option>
-                <option value="2760">VLAN de MARINGÁ - PR</option>
-                <option value="3050">VLAN de NOVA ALIANÇA - PR</option>
-                <option value="2750">VLAN de DOURADOS - MS</option>
-                <option value="2869">VLAN de IVINHEMA - MS</option>
-                <option value="2825">VLAN de BAYTAPORÃ - MS</option>
-            </select> 
-        </form>
-        </div>
+        <select name="VLAN" id="ProvVLAN">
+            <option value="2800">VLAN de NOVA ANDRADINA - MS</option>
+            <option value="2710">VLAN de MANDAGUAÇU - PR</option>
+            <option value="2820">VLAN de NOVA ESPERANÇA - PR</option>
+            <option value="2714">VLAN de TERRA RICA - PR</option>
+            <option value="2821">VLAN de PAIÇANDU - PR</option>
+            <option value="2700">VLAN de PARANAVAÍ - PR</option>
+            <option value="2760">VLAN de MARINGÁ - PR</option>
+            <option value="3050">VLAN de NOVA ALIANÇA - PR</option>
+            <option value="2750">VLAN de DOURADOS - MS</option>
+            <option value="2869">VLAN de IVINHEMA - MS</option>
+            <option value="2825">VLAN de BAYTAPORÃ - MS</option>
+        </select> 
 
-<button onclick="gerarComandos()">Gerar Comandos</button>
-<br><br>
+        <!-- OPÇÕES DE CONFIGURAÇÕES VOIP -->
+        <p class="titulo">PORTA VOIP</p>
+        <select name="portaVoip" id="portaVoip">    
+            <option value="1">PORTA 1</option>
+            <option value="2">PORTA 2</option>
+        </select>
+
+        <button type="button" onclick="gerarComandos()">Gerar Comandos</button>
+    </form>
+</div>
 
 <textarea id="output" readonly placeholder="Os comandos gerados aparecerão aqui..."></textarea>
+
+<div class="consultas">
+    <p class="titulo">CONSULTAR</p>
+        <button>Verificar se pegou MAC</button>
+        <button>Verificar VLAN</button> 
+</div>
 
 </body>
 </html>

@@ -39,3 +39,11 @@ Linha TL1:
 
 EthPort.EthPort.2 -> Colocar no lugar do 2 a porta LAN do Bridge.
 ====================================================================================================================================================
+CONSULTAS A SEREM REALIZADAS APÓS A REALIZAÇAO DO BRIDGE:
+show vlan bridge-port-fdb 1/1/`3/16/2/1/2` - Verificar se pegou MAC
+info configure bridge port 1/1/`3/16/2/1/2` flat - Verificar VLAN
+====================================================================================================================================================
+VERIFICAR COMO O BRIDGE VOIP FUNCIONA DE FATO PARA REALIZAR A CODAGEM:
+É o mesmo procedimento?
+O que tenho que mudar de um Bridge de Rede para um Bridge de Voip?
+
