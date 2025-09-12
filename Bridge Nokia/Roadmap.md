@@ -48,3 +48,10 @@ configure bridge port 1/1/slot/pon/posicaoONT/cardtype/portaLAN pvid "vlan"
 
 4° PASSO -> Comando TL1 para colocar a porta LAN em modo Bridge na LAN:
 ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-slot-pon-posicaoONT-30::::PARAMNAME=InternetGatewayDevice.X_ASB_COM_EthPort.EthPort.portaLAN.isTr069Domain,PARAMVALUE=false;
+
+
+
+
+
+show vlan bridge-port-fdb 1/1/3/16/2/1/1 - Verificar se pegou MAC
+info configure bridge port 1/1/3/16/2/1/1 flat - Verificar VLAN
