@@ -2,6 +2,7 @@
 // script.js
 // =====================
 
+
 // Lista (ordem) das cidades/labels que aparecem no select
 const cidades = [
   "NOVA ANDRADINA - MS",
@@ -17,6 +18,7 @@ const cidades = [
   "BAYTAPORÃ - MS"
 ];
 
+
 // Mapeamento das VLANs de REDE (valores originais do seu HTML)
 const vlansRede = {
   "NOVA ANDRADINA - MS": "2800",
@@ -31,6 +33,7 @@ const vlansRede = {
   "IVINHEMA - MS":       "2869",
   "BAYTAPORÃ - MS":      "2825"
 };
+
 
 // Mapeamento das VLANs de VOIP
 // ✅ Substitua os valores abaixo pelos valores reais do seu ambiente.
@@ -49,13 +52,16 @@ const vlansVoip = {
   "BAYTAPORÃ - MS":      "300"
 };
 
+
 // Função que atualiza o select de VLANs de acordo com o tipo selecionado
 function atualizarVlans() {
   const tipo = document.getElementById("tipoBridge").value; // 'rede' | 'voip' | ''
   const select = document.getElementById("ProvVLAN");
 
+
   // Limpa
   select.innerHTML = "";
+
 
   // Se não escolheu tipo, não popula (ou popula com REDE por padrão)
   if (!tipo) {
@@ -65,6 +71,7 @@ function atualizarVlans() {
     select.appendChild(opt);
     return;
   }
+
 
   // Preenche na ordem do array "cidades"
   cidades.forEach(label => {
@@ -80,6 +87,7 @@ function atualizarVlans() {
   });
 }
 
+
 // Função que monta e exibe os comandos (chamada pelo botão "Gerar Comandos")
 function gerarComandos() {
   const tipo = document.getElementById("tipoBridge").value; // rede ou voip
@@ -92,6 +100,7 @@ function gerarComandos() {
   const desc2 = document.getElementById("inputDesc2").value.trim();
   const sernum = document.getElementById("inputSernum").value.trim();
   const vlan = document.getElementById("ProvVLAN").value;
+
 
   // validação básica
   if (!tipo) return alert("Selecione o tipo de bridge (rede ou voip).");
@@ -126,9 +135,36 @@ ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-${slot}-${pon}-${pos}-30::::PARAMNAME=In
   document.getElementById("output").value = comandos;
 }
 
+
 // Popula o select com REDE por padrão ao abrir (opcional)
 window.addEventListener("DOMContentLoaded", () => {
   // Se quiser que a página abra sem nada selecionado, comente a próxima linha
   document.getElementById("tipoBridge").value = "rede";
   atualizarVlans();
 });
+
+
+// Consultas Bridge
+function verificarMac() {
+  let slot = document.getElementById("inputSlot").value;
+  let pon = document.getElementById("inputGpon").value;
+  let pos = document.getElementById("inputIndex").value;
+  let cardType = document.getElementById("CardType").value;
+  let portaLAN = document.getElementById("portaLan").value;
+
+  let comando = `info configure equipment ont interface 1/1/${slot}/${pon}/${pos}/${cardType}/${portaLAN}`;
+  navigator.clipboard.writeText(comando);
+  alert("Comando de MAC copiado:\n\n" + comando);
+}
+
+function verificarVlan() {
+  let slot = document.getElementById("inputSlot").value;
+  let pon = document.getElementById("inputGpon").value;
+  let pos = document.getElementById("inputIndex").value;
+  let cardType = document.getElementById("CardType").value;
+  let portaLAN = document.getElementById("portaLan").value;
+
+  let comando = `info configure bridge port 1/1/${slot}/${pon}/${pos}/${cardType}/${portaLAN}`;
+  navigator.clipboard.writeText(comando);
+  alert("Comando de VLAN copiado:\n\n" + comando);
+}
