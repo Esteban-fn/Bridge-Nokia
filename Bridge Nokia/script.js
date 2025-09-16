@@ -143,28 +143,98 @@ window.addEventListener("DOMContentLoaded", () => {
   atualizarVlans();
 });
 
+// Função para realizar as consultas de MAC e VLAN apenas quando as informações estiverem completas
+function getPath() {
+  let slot = document.getElementById("inputSlot").value.trim();
+  let pon = document.getElementById("inputGpon").value.trim();
+  let pos = document.getElementById("inputIndex").value.trim();
+  let cardType = document.getElementById("CardType").value.trim();
+  let portaLAN = document.getElementById("portaLan").value.trim();
 
-// Consultas Bridge
+  // Verifica se algum campo está vazio
+  if (!slot || !pon || !pos || !cardType || !portaLAN) {
+    return null; // retorna nulo se tiver incompleto
+  }
+
+  return `${slot}/${pon}/${pos}/${cardType}/${portaLAN}`;
+}
+
 function verificarMac() {
-  let slot = document.getElementById("inputSlot").value;
-  let pon = document.getElementById("inputGpon").value;
-  let pos = document.getElementById("inputIndex").value;
-  let cardType = document.getElementById("CardType").value;
-  let portaLAN = document.getElementById("portaLan").value;
-
-  let comando = `info configure equipment ont interface 1/1/${slot}/${pon}/${pos}/${cardType}/${portaLAN}`;
+  let path = getPath();
+  if (!path) {
+    alert("⚠️ Preencha todos os campos: Slot, PON, Posição, CardType e PortaLAN.");
+    return;
+  }
+  let comando = `info configure equipment ont interface 1/1/${path}`;
   navigator.clipboard.writeText(comando);
   alert("Comando de MAC copiado:\n\n" + comando);
 }
 
 function verificarVlan() {
-  let slot = document.getElementById("inputSlot").value;
-  let pon = document.getElementById("inputGpon").value;
-  let pos = document.getElementById("inputIndex").value;
-  let cardType = document.getElementById("CardType").value;
-  let portaLAN = document.getElementById("portaLan").value;
-
-  let comando = `info configure bridge port 1/1/${slot}/${pon}/${pos}/${cardType}/${portaLAN}`;
+  let path = getPath();
+  if (!path) {
+    alert("⚠️ Preencha todos os campos: Slot, PON, Posição, CardType e PortaLAN.");
+    return;
+  }
+  let comando = `info configure bridge port 1/1/${path}`;
   navigator.clipboard.writeText(comando);
   alert("Comando de VLAN copiado:\n\n" + comando);
 }
+
+
+// Regra para forçar ALCL:XXXXXXXX
+document.getElementById("inputSernum").addEventListener("input", function() {
+  // força maiúsculo
+  let valor = this.value.toUpperCase();
+
+  // garante prefixo ALCL:
+  if (!valor.startsWith("ALCL:")) {
+    valor = valor.replace(/^ALCL:?/, "ALCL:"); 
+  }
+
+  // remove qualquer caractere extra depois dos 8 últimos
+  valor = valor.slice(0, 13);
+
+  this.value = valor;
+});
+ 
+
+// Força o campo Desc1 a ficar sempre em MAIÚSCULO, substituir espaços por "_" e limitar a 42 caracteres
+document.getElementById("inputDesc1").addEventListener("input", function() {
+  this.value = this.value.toUpperCase().replace(/\s+/g, "_").slice(0, 46);
+});
+
+
+// Força o campo Desc2 a ficar sempre em MAIÚSCULO (se tiver "-") ou minúsculo (se for PPPoE),
+// substitui espaços por "-" e limita a 16 caracteres
+document.getElementById("inputDesc2").addEventListener("input", function() {
+  let valor = this.value;
+
+  if (valor.includes("-")) {
+    // Caso seja um código (já tem "-")
+    this.value = valor.toUpperCase().replace(/\s+/g, "-").slice(0, 22);
+  } else {
+    // Caso seja PPPoE (sem "-")
+    this.value = valor.toLowerCase().replace(/\s+/g, "-").slice(0, 22);
+  }
+});
+
+
+// Regras para limitar e deixar somente a discagem de números nos inputs
+function limitarNumeros(id, max) {
+  const campo = document.getElementById(id);
+  campo.addEventListener("input", function() {
+    // remove tudo que não for número
+    this.value = this.value.replace(/\D/g, ""); 
+    // limita o tamanho
+    this.value = this.value.slice(0, max); 
+  });
+}
+
+// Aplicar
+limitarNumeros("inputSlot", 2);
+limitarNumeros("inputGpon", 2);
+limitarNumeros("inputIndex", 3);
+
+
+
