@@ -35,6 +35,14 @@ textarea {
   }
 
   #btnAjuda:focus {
-    outline: 3px solid #007bff /* acessibilidade (foco visível) */
+    outline: 3px solid #00ffa2; /* acessibilidade (foco visível) */
     outline-offset: 4px;
   }
+
+
+
+
+
+
+
+  
