@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda - Bridge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #1a73e8;
+    }
+    section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    code, pre {
+      background: #f4f4f4;
+      padding: 0.5rem;
+      border-radius: 4px;
+      display: block;
+      overflow-x: auto;
+    }
+    ul {
+      margin-top: 0.5rem;
+    }
+    /* Botão voltar */
+    .btn-voltar {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background: #1a73e8;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-voltar:hover {
+      background: #1558b0;
+    }
+  </style>
+</head>
+<body>
+  <a class="btn-voltar" onclick="history.back()">← Voltar</a>
+
+  <h1>Ajuda - Sistema de Bridge</h1>
+
+  <!-- resto do conteúdo que você já tem aqui -->
+
+  <section>
+    <h2>O que é Bridge?</h2>
+    <p>O <strong>Bridge</strong> em redes de fibra (FTTH) é a configuração que conecta a ONT diretamente à rede do cliente, sem que a ONT funcione como roteador. Dessa forma, o roteador do cliente recebe o IP público e autentica diretamente via PPPoE.</p>
+  </section>
+
+  <section>
+    <h2>Para que serve?</h2>
+    <ul>
+      <li>Permitir que o cliente use o próprio roteador para autenticar a conexão.</li>
+      <li>Entregar IP público diretamente ao roteador do cliente.</li>
+      <li>Reduzir problemas de NAT duplo (quando há dois roteadores em cascata).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Em quais situações é feito?</h2>
+    <ul>
+      <li>Clientes que possuem roteadores próprios (Mikrotik, TP-Link, Intelbras, etc.).</li>
+      <li>Quando o cliente precisa de controle avançado da rede.</li>
+      <li>Em contratos corporativos que exigem IP fixo público.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Prós e Contras</h2>
+    <h3>Prós</h3>
+    <ul>
+      <li>Mais controle para o cliente.</li>
+      <li>Entrega de IP público diretamente.</li>
+      <li>Evita NAT duplo.</li>
+    </ul>
+    <h3>Contras</h3>
+    <ul>
+      <li>Dependência do roteador do cliente para autenticar.</li>
+      <li>Se o cliente não configurar corretamente, pode ficar sem internet.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Como fazer manualmente (linha por linha)</h2>
+    <p>Exemplo de configuração:</p>
+    <pre>
+configure equipment ont interface 1/1/SLOT/PON/POS sw-ver-pland auto desc1 DESC1 desc2 DESC2 sernum ALCL:XXXXXXX subslocid WILDCARD fec-up disable optics-hist enable sw-dnload-version disabled voip-allowed veip log-auth-pwd plain:** pland-cfgfile1 auto dnload-cfgfile1 auto planned-us-rate nominal-line-rate
+
+configure equipment ont interface 1/1/SLOT/PON/POS admin-state up
+
+configure equipment ont slot 1/1/SLOT/PON/POS/CARD planned-card-type ethernet plndnumdataports 4 plndnumvoiceports 0 admin-state up
+
+configure qos interface 1/1/SLOT/PON/POS/CARD/PORTA upstream-queue 0 bandwidth-profile name:HSI_1G_UP 
+
+configure interface port uni:1/1/SLOT/PON/POS/CARD/PORTA admin-up
+configure bridge port 1/1/SLOT/PON/POS/CARD/PORTA max-unicast-mac 12 max-committed-mac 1
+configure bridge port 1/1/SLOT/PON/POS/CARD/PORTA vlan-id VLAN
+configure bridge port 1/1/SLOT/PON/POS/CARD/PORTA pvid VLAN
+    </pre>
+
+    <h3>Explicação linha a linha</h3>
+    <ul>
+      <li><code>configure equipment ont interface ...</code>: Cria a interface da ONT com número de série e descrições.</li>
+      <li><code>admin-state up</code>: Sobe a ONT.</li>
+      <li><code>configure equipment ont slot ...</code>: Cria a placa de rede na ONT.</li>
+      <li><code>configure qos interface ...</code>: Configura fila de upstream e perfil de banda.</li>
+      <li><code>configure interface port uni ...</code>: Habilita a porta física.</li>
+      <li><code>configure bridge port ... vlan-id</code>: Define a VLAN de serviço.</li>
+      <li><code>configure bridge port ... pvid</code>: Define VLAN padrão da porta.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Como fazer pelo sistema</h2>
+    <ol>
+      <li>Selecione o tipo de Bridge (Rede ou VoIP).</li>
+      <li>Escolha a cidade e a VLAN será preenchida automaticamente.</li>
+      <li>Preencha <strong>Slot</strong>, <strong>PON</strong>, <strong>Posição</strong> e <strong>S/N (ALCL)</strong>.</li>
+      <li>Digite a descrição (Desc1 e Desc2) conforme padrão.</li>
+      <li>Escolha a porta LAN que será usada.</li>
+      <li>Clique em <strong>Gerar Comandos</strong>.</li>
+      <li>Copie e cole no AMS os comandos gerados.</li>
+    </ol>
+  </section>
+</body>
+</html>
