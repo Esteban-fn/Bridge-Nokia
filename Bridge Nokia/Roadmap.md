@@ -60,3 +60,26 @@ info configure bridge port 1/1/3/16/2/1/1 flat - Verificar VLAN
 Mensagem de alerta caso tenha ido para a área de transferência (Consultas)
 Quando for selecionado o modo rede ou voip ira aparecer uma mensagem mostrando qual tipo o usuário escolheu...
 Deixar o menu de Informações para explicar como é realizado o bridge pelo comando, com o sistema e um vídeo...
+
+Deixar modo hamburguer para tirar e voltar o menu lateral...
+Colocar temas diferentes para o usuário selecionar qual o preferido...
+Colocar os parametros corretos no código fonte assim como foi colocado no Bridge...
+
+
+COLOCAR ISSO NAS CONSULTAS:
+
+show network-access aaa subscribers username "pppoe" ---> (sem aspas, para verificar as velocidades de download e upload do PPPoE na tabela)
+
+show subscribers user-name "pppoe" ---> (sem aspas, para verificar qual IP o PPPoE está autenticado)
+
+show subscribers address 209.14.32.13 ---> Verifica qual PPPOE o IP está vinculado.
+
+Ver informações da ONT do cliente:NE
+1 - configure equipment ont interface 1/1/1/1/1
+2 - info --> Ira ver as informações da ONT.
+3 - desc1 "TESTE-NOC" --> Alterara a desc1 da ONT.
+(configure>equipment>ont>interface>1/1/1/1/1#)
+
+environment inhibit-alarms ---------> Parar alarmes do CRT
+
+admin equipment ont interface 1/1/6/7/7 reboot via-ploam --> Reiniciar a ONT
