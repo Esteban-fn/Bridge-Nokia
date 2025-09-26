@@ -9,36 +9,124 @@ textarea {
       border: 1px solid #444;
     }
     
-/* Botão de Ajuda */
-    #btnAjuda {
-    position: fixed;       /* Fica sempre visível, mesmo rolando a tela */
-    top: 16px;
-    right: 16px;
-    background: #007bff;   /* azul destaque */
-    color: white;
-    border: none;
-    border-radius: 50%;    /* botão redondo */
-    width: 48px;
-    height: 48px;
-    font-size: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: background 0.3s, transform 0.2s;
-  }
+#btnAjuda {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 1.6rem;
+  color: #00ff00; /* verde neon */
+  text-decoration: none;
+  border: 2px solid #00ff00;
+  border-radius: 50%;
+  padding: 8px 12px;
+  background: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-  #btnAjuda:hover {
-    background: #0056b3;  /* cor mais escura ao passar o mouse */
-    transform: scale(1.1); /* efeito de leve zoom */
-  }
+#btnAjuda:hover {
+  background: #00ff00;
+  color: #000;
+}
+
 
   #btnAjuda:focus {
     outline: 3px solid #00ffa2; /* acessibilidade (foco visível) */
     outline-offset: 4px;
   }
 
+
+  /* Reset básico */
+body {
+  margin: 0;
+  padding: 20px;
+  background-color: #000; /* fundo preto */
+  color: #00ff00; /* texto verde neon */
+  font-family: "Courier New", monospace; /* estilo terminal */
+}
+
+/* Botão de ajuda (ícone no canto superior direito) */
+#btnAjuda {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+#btnAjuda:hover {
+  transform: scale(1.2);
+  color: #00ff00; 
+}
+
+/* Títulos */
+.titulo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 20px;
+  color: #00ff00; 
+  border-left: 4px solid #00ff00;
+  padding-left: 8px;
+}
+
+/* Container */
+.container_into {
+  background-color: #111;
+  border: 1px solid #0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #0f0;
+  margin-bottom: 20px;
+}
+
+/* Inputs e selects */
+input, select, textarea, button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  background-color: #000;
+  border: 1px solid #00ff00;
+  border-radius: 4px;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #008000;
+}
+
+/* Botões */
+button {
+  background-color: #111;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: #00ff00;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Textarea (saída dos comandos) */
+#output {
+  height: 150px;
+  margin-top: 20px;
+  resize: none;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+/* Seção de consultas */
+.consultas {
+  margin-top: 20px;
+  padding: 15px;
+  background: #111;
+  border: 1px solid #00ff00;
+  border-radius: 8px;
+}
 
 
 
