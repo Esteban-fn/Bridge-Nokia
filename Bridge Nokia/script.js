@@ -179,7 +179,6 @@ function verificarVlan() {
   alert("Comando de VLAN copiado:\n\n" + comando);
 }
 
-
 // Regra para forçar ALCL:XXXXXXXX
 document.getElementById("inputSernum").addEventListener("input", function() {
   // força maiúsculo
