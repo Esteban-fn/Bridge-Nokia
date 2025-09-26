@@ -36,8 +36,6 @@ const vlansRede = {
 
 
 // Mapeamento das VLANs de VOIP
-// ✅ Substitua os valores abaixo pelos valores reais do seu ambiente.
-// Se um city não estiver aqui, o código usa automaticamente o valor de rede (fallback).
 const vlansVoip = {
   "NOVA ANDRADINA - MS": "300",
   "MANDAGUAÇU - PR":    "300",
