@@ -6,222 +6,267 @@
     <title>Tutoriais</title>
 
 </head>
+
 <body>
-    
 <h1>TUTORIAL GERENCIADOR NOKIA</h1>
-
 <p>
-<strong>👋 Boas-vindas ao Tutorial do Gerenciador ONT Nokia e Comandos CLI via SSH</strong>
-
+<strong>👋 Boas-vindas ao Tutorial do Gerenciador ONT Nokia e Comandos CLI via SSH</strong><br>
 Seja bem-vindo(a) ao tutorial do <strong>Gerenciador ONT Nokia!</strong>
 Aqui, você aprenderá a utilizar o sistema de forma autônoma, explorando tanto a interface quanto o acesso <br> remoto via <strong>CLI (Command Line Interface)</strong> por <strong>SSH</strong> para gerenciamento e diagnóstico das ONTs Nokia.
-
+<br><br>
 Embora o sistema tenha sido desenvolvido para <strong>automatizar</strong> grande parte dos processos do dia a dia, neste tutorial o foco será o <strong>uso manual dos comandos</strong>. Essa prática é a mais recomendada, pois permite que você:
-
+<br>
 <strong>
-Entenda melhor o funcionamento da rede e dos equipamentos;
-Identifique erros e falhas com mais facilidade;
+Entenda melhor o funcionamento da rede e dos equipamentos;<br>
+Identifique erros e falhas com mais facilidade;<br>
 Desenvolva um conhecimento técnico sólido e duradouro.
 </strong>
-
-Ao final, você estará apto(a) a realizar operações, consultas e manutenções diretamente pelo terminal, dominando o ambiente <strong>CLI</strong> com segurança e eficiência.
-
+<br>
+Ao final, você estará apto(a) a realizar operações, consultas e manutenções diretamente pelo terminal, dominando o ambiente <strong>CLI</strong> com segurança e eficiência.<br>
 Prepare-se para aprender de forma prática e aprofundada, o controle total da rede estará nas suas mãos. 🚀    
+</p>
 
 
-MAPEAMENTO DE COMANDOS - GERENCIADOR ONT NOKIA
+<div class="accordion">
+    <button class="accordion-btn">◯ Pesquisar Cliente (SSH)</button>
+    <div class="accordion-panel">
+        <strong>POSIÇÃO DO CLIENTE</strong><br>
+        Slot GPON &rarr; Slot em que o cliente se encontra.<br>
+        Porta PON &rarr; PON em que o cliente se encontra.<br>
+        Posição da ONT &rarr; Posição do cliente dentro da PON (1 - 128).<br><br>
+        <strong>PESQUISAR CLIENTE &rarr; COMANDOS PARA IDENTIFICAR CLIENTE.</strong><br><br>
+        Inserir ALCL &rarr; Aqui será colocado o número de serial da ONT, como é Nokia, então ALCL.<br>
+        <code>show equipment ont index sn:ALCL:&quot;Número de serial&quot;</code> &rarr; Identifica a ONT do cliente pelo número de serial (ALCL).<br><br>
+        Inserir Nome &rarr; Aqui iremos colocar o nome caso não conseguirmos identificar o ALCL.<br>
+        <code>show equipment ont status pon | match exact:&quot;NOME&quot;</code> &rarr; Identifica a ONT do cliente pelo nome.
+    </div>
+</div>
 
-==================================================================================================================================================
-◯ Pesquisar Cliente:
+<div class="accordion">
+    <button class="accordion-btn">◯ Provisionar Cliente (TL1)</button>
+    <div class="accordion-panel">
+        <strong>PROVISIONAR CLIENTE</strong><br>
+        Descrição 1 (desc1) &rarr; Nome completo do cliente.<br>
+        Descrição 2 (desc2) &rarr; Coloque a CTO, caso não tenha, coloque o PPPoE.<br>
+        S°NUMBER (sernum) &rarr; Número de serial da ONT, como é Nokia, ALCL.<br>
+        Usuário PPPOE &rarr; Colocar o usuário PPPoE do cliente.<br>
+        Senha PPPOE &rarr; Colocar a senha do PPPoE do cliente.<br>
+        VLAN &rarr; Selecione a VLAN da cidade em que a ONT se encontra.<br><br>
+        <strong>PROVISIONAR ONU &rarr; COMANDO PARA REALIZAR O PROVISIONAMENTO:</strong><br>
+        <code>ENT-ONT::ONT-1-1-1-1-1::::DESC1="Descrição 1 (desc1)",DESC2="Descrição 2 (desc2)",SERNUM="S°NUMBER (sernum)",SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;ED-ONT::ONT-1-1-1-1-1:::::IS;ENT-ONTCARD::ONTCARD-1-1-1-1-1-14:::VEIP,1,0::IS;ENT-LOGPORT::ONTL2UNI-1-1-1-1-1-14-1:::;ED-ONTVEIP::ONTVEIP-1-1-1-1-1-14-1:::::IS;SET-QOS-USQUEUE::ONTL2UNIQ-1-1-1-1-1-14-1-0::::USBWPROFNAME=HSI_1G_UP;SET-VLANPORT::ONTL2UNI-1-1-1-1-1-14-1:::MAXNUCMACADR=4,CMITMAXNUMMACADDR=1;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,777:PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE="VLAN";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-2::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username,PARAMVALUE="Usuário PPPOE";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-3::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password,PARAMVALUE="Senha PPPOE";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9::::PARAMNAME=InternetGatewayDevice.X_Authentication.Account.Password,PARAMVALUE="S°NUMBER (sernum)";</code>
+    </div>
+</div>
 
-POSIÇÃO DO CLIENTE
-Slot GPON --> Slot em que o cliente se encontra.
-Porta PON --> PON em que o cliente se encontra.
-Posição da ONT --> Posição do cliente dentro da PON (1 - 128).
+<div class="accordion">
+    <button class="accordion-btn">◐ Provisionar ONT Telefonia (TL1)</button>
+    <div class="accordion-panel">
+        <strong>PROVISIONAR ONT - APENAS TELEFONIA (TL1)</strong><br>
+        Descrição 1 (desc1) &rarr; Nome completo do cliente.<br>
+        Descrição 2 (desc2) &rarr; Coloque a CTO, caso não tenha, coloque o PPPoE.<br>
+        S°NUMBER (sernum) &rarr; Número de serial da ONT, como é Nokia, ALCL.<br>
+        Número do Telefone &rarr; Número fixo do cliente, encontrado no Sipulse.<br>
+        Senha VoIP &rarr; Senha do cliente, também é encontrada no Sipulse.<br>
+        VLANs por Cidade &rarr; Selecione a VLAN da cidade em que a ONT se encontra.<br><br>
+        <strong>PROVISIONAR ONT TELEFONIA &rarr; COMANDO PARA REALIZAR APENAS O PROVISIONAMENTO DO TELEFONE (FIXO AVULSO):</strong><br>
+        <code>ENT-ONT::ONT-1-1-1-1-1::::DESC1="Descrição 1 (desc1)",DESC2="Descrição 2 (desc2)",SERNUM="S°NUMBER (sernum)",SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;ED-ONT::ONT-1-1-1-1-1:::::IS;ENT-ONTCARD::ONTCARD-1-1-1-1-1-14:::VEIP,1,0::IS;ENT-LOGPORT::ONTL2UNI-1-1-1-1-1-14-1:::;ED-ONTVEIP::ONTVEIP-1-1-1-1-1-14-1:::::IS;SET-QOS-USQUEUE::ONTL2UNIQ-1-1-1-1-1-14-1-0::::USBWPROFNAME=HSI_1G_UP;SET-VLANPORT::ONTL2UNI-1-1-1-1-1-14-1:::MAXNUCMACADR=4,CMITMAXNUMMACADDR=1;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,777:PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE="VLAN";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9::::PARAMNAME=InternetGatewayDevice.X_Authentication.Account.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-ONTCARD::ONTCARD-1-1-1-1-1-15:::POTS,2,0::IS;ENT-LOGPORT::ONTPOTS-1-1-1-1-1-15-1:::;ENT-LOGPORT::ONTPOTS-1-1-1-1-1-15-2:::;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.DirectoryNumber,PARAMVALUE="Número do Telefone";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName,PARAMVALUE="Número do Telefone";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword,PARAMVALUE="Senha VoIP";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.2.DirectoryNumber,PARAMVALUE="Número do Telefone";</code>
+    </div>
+</div>
 
-PESQUISAR CLIENTE --> COMANDOS PARA IDENTIFICAR CLIENTE.
+<div class="accordion">
+    <button class="accordion-btn">◪ Bridge ONT Nokia (SSH) & (TL1)</button>
+    <div class="accordion-panel">
+        <strong>BRIDGE ONT NOKIA</strong><br>
+        Tipo de Bridge &rarr; Aqui você seleciona qual Bridge ira realizar, se é Rede ou Voip.<br>
+        Porta LAN &rarr; Define qual porta LAN o Bridge será realizado.<br>
+        Card Type &rarr; Define qual Card Type utilizara para o Bridge ser realizado.<br>
+        Descrição 1 (desc1) &rarr; Nome completo do cliente.<br>
+        Descrição 2 (desc2) &rarr; Coloque a CTO, caso não tenha, coloque o PPPoE.<br>
+        S°NUMBER (sernum) &rarr; Número de serial da ONT, como é Nokia, ALCL.<br>
+        VLAN Utilizada &rarr; Selecione a VLAN da cidade em que a ONT se encontra.<br><br>
+        <strong>GERAR COMANDOS &rarr; COMANDO PARA REALIZAR BRIDGE (É NECESSÁRIO QUE AO REALIZAR ESSE PROCEDIMENTO SEJA LANÇADO LINHA POR LINHA):</strong><br>
+        <ol>
+            <li><b>DESPROVISIONAR ONT:</b><br>
+                <code>configure equipment ont interface 1/1/"Slot/PON/Posição da ONT" admin-state down</code> &rarr; Desativa a ONT logicamente.<br>
+                <code>configure equipment ont no interface 1/1/"Slot/PON/Posição da ONT"</code> &rarr; Remove totalmente a ONT da OLT.
+            </li>
+            <li><b>PROVISIONAR ONT:</b><br>
+                <code>configure equipment ont interface 1/1/"Slot/PON/Posição da ONT" sw-ver-pland auto desc1 "Descrição 1 (desc1)" desc2 "Descrição 2 (desc2)" sernum "S°NUMBER (sernum)" subslocid WILDCARD fec-up disable optics-hist enable sw-dnload-version disabled voip-allowed veip log-auth-pwd plain:** pland-cfgfile1 auto dnload-cfgfile1 auto planned-us-rate nominal-line-rate</code> &rarr; Cria a ONT com descrições, número de série, permissões e parâmetros básicos.<br>
+                <code>configure equipment ont interface 1/1/"Slot/PON/Posição da ONT" admin-state up</code> &rarr; Ativa a ONT para operação.
+            </li>
+            <li><b>PORTA BRIDGE:</b><br>
+                <code>configure equipment ont slot 1/1/"Slot/PON/Posição da ONT/Card Type" planned-card-type ethernet plndnumdataports 4 plndnumvoiceports 0 admin-state up</code> &rarr; Cria o card Ethernet com 4 portas de dados e sem portas de voz (não altera no Bridge Voip).<br>
+                <code>configure qos interface 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" upstream-queue 0 bandwidth-profile name:HSI_1G_UP</code> &rarr; Define o perfil de upload (1 Gbps) e a prioridade de QoS (fila 0 para tráfego de dados e fila 5 para VoIP).<br>
+                <code>configure interface port uni:1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" admin-up</code> &rarr; Ativa a porta LAN 1.<br>
+                <code>configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" max-unicast-mac 12 max-committed-mac 1</code> &rarr; Limita o número de MACs na porta.<br>
+                <code>configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" vlan-id "VLAN Utilizada"</code> &rarr; Define a VLAN escolhida para essa porta.<br>
+                <code>configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" pvid "VLAN Utilizada"</code> &rarr; Define a VLAN escolhida como VLAN padrão (untagged).
+            </li>
+            <li><b>Comando TL1:</b><br>
+                <code>ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-"Slot-PON-Posição da ONT"-30::::PARAMNAME=InternetGatewayDevice.X_ASB_COM_EthPort.EthPort."Porta LAN".isTr069Domain,PARAMVALUE=false;</code> &rarr; Define que a porta LAN escolhida não será usada para TR-069 (somente uso do cliente).
+            </li>
+        </ol>
+        <br>
+        Diferenças entre Bridge de Rede e VoIP: O que muda entre os modos é a fila de prioridade do QoS (para rede é 0 e para VoIP é 5) e também a VLAN, que será diferente em cada caso.<br><br>
+        <strong>Verificar VLAN</strong> &rarr; Verifica qual VLAN está configurada na porta onde foi realizado o Bridge.<br>
+        <code>info configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN"</code> &rarr; Mostra a configuração da porta de bridge, incluindo VLAN, PVID, limite de MACs e estado da porta.<br><br>
+        <strong>Verificar MAC</strong> &rarr; Verifica se na porta onde foi realizado o Bridge já está linkando o MAC do equipamento que irá gerenciar a rede.<br>
+        <code>show vlan bridge-port-fdb 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN"</code> &rarr; Mostra a tabela de MACs aprendidos na porta, indicando quais dispositivos estão conectados e em qual VLAN.
+    </div>
+</div>
 
-Inserir ALCL --> Aqui será colocado o número de serial da ONT, como é Nokia, então ALCL.
-show equipment ont index sn:ALCL:"Número de serial" --> Identifica a ONT do cliente pelo número de serial (ALCL).
+<div class="accordion">
+    <button class="accordion-btn">◈ Configurar Wi-Fi (TL1)</button>
+    <div class="accordion-panel">
+        <strong>CONFIGURAR REDE Wi-Fi</strong><br>
+        Nome da Rede Wi-Fi &rarr; Ira inserir o nome desejado da rede Wi-Fi.<br>
+        Senha da Rede Wi-Fi &rarr; Ira inserir a senha desejada do Wi-Fi.<br><br>
+        <strong>ALTERAR NOME E SENHA - COMANDO PARA ALTERAR NOME E SENHA:</strong><br>
+        <code>DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID,PARAMVALUE="Nome da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.SSID,PARAMVALUE="Nome da Rede Wi-Fi_5G";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";</code><br><br>
+        <strong>ALTERAR APENAS NOME - COMANDO PARA ALTERAR APENAS O NOME:</strong><br>
+        <code>DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID,PARAMVALUE="Nome da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.SSID,PARAMVALUE="Nome da Rede Wi-Fi_5G";</code><br><br>
+        <strong>ALTERAR APENAS SENHA - COMANDO PARA ALTERAR APENAS A SENHA:</strong><br>
+        <code>DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";</code>
+    </div>
+</div>
 
-Inserir Nome --> Aqui iremos colocar o nome caso não conseguirmos identificar o ALCL.
-show equipment ont status pon | match exact:"NOME" --> Identifica a ONT do cliente pelo nome.
+<div class="accordion">
+    <button class="accordion-btn">◐ Configurar Telefone (TL1)</button>
+    <div class="accordion-panel">
+        <strong>CONFIGURAR TELEFONE</strong><br>
+        Porta do Telefone &rarr; Selecionar a porta FXS onde será configurado o telefone (1 ou 2).<br>
+        Usuário SIP &rarr; Número fixo do cliente, encontrado no Sipulse.<br>
+        Senha SIP &rarr; Senha do cliente, também é encontrada no Sipulse.<br><br>
+        <strong>CONFIGURAR TELEFONE - COMANDO PARA CONFIGURAR A LINHA DO CLIENTE:</strong><br>
+        <code>SET-QOS-USQUEUE::ONTL2UNIQ-1-1-1-1-1-14-1-5::::USBWPROFNAME=HSI_1G_UP;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-10::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxy,PARAMVALUE=10.255.0.1;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-11::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServer,PARAMVALUE=10.255.0.1;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-12::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer,PARAMVALUE=10.255.0.1;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-13::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.UserAgentDomain,PARAMVALUE="sip.solucaonetwork.com";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-14::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".Enable,PARAMVALUE=Enabled;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-15::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".DirectoryNumber,PARAMVALUE="Usuário SIP";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-16::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".SIP.AuthUserName,PARAMVALUE="Usuário SIP";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-17::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".SIP.AuthPassword,PARAMVALUE="Senha SIP";</code>
+    </div>
+</div>
 
-==================================================================================================================================================
-◯ Provisionar Cliente: 
+<div class="accordion">
+    <button class="accordion-btn">◊ Alterar VLAN e PPPOE (TL1)</button>
+    <div class="accordion-panel">
+        <strong>ALTERAR VLAN PPPOE</strong><br>
+        Usuário PPPOE &rarr; Colocar o usuário PPPoE do cliente.<br>
+        Senha PPPOE &rarr; Colocar a senha do PPPoE do cliente.<br>
+        VLAN &rarr; Selecione a VLAN da cidade em que a ONT se encontra.<br><br>
+        <strong>ALTERAR VLAN E PPPOE - COMANDO PARA ALTERAR A VLAN E O PPPOE DA ONT:</strong><br>
+        <code>DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-2;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-3;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE="VLAN";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-2::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username,PARAMVALUE="Usuário PPPOE";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-3::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password,PARAMVALUE="Senha PPPOE";</code>
+    </div>
+</div>
 
-PROVISIONAR CLIENTE
-Descrição 1 (desc1) --> Nome completo do cliente.
-Descrição 2 (desc2) --> Coloque a CTO, caso não tenha, coloque o PPPoE.
-S°NUMBER (sernum) --> Número de serial da ONT, como é Nokia, ALCL.
-Usuário PPPOE --> Colocar o usuário PPPoE do cliente.
-Senha PPPOE --> Colocar a senha do PPPoE do cliente.
-VLAN --> Selecione a VLAN da cidade em que a ONT se encontra.
+<div class="accordion">
+    <button class="accordion-btn">◇ Alterar Senha Web (TL1)</button>
+    <div class="accordion-panel">
+        <strong>ALTERAR SENHA DE ACESSO WEB</strong><br>
+        S°NUMBER (sernum) &rarr; Número de serial da ONT, como é Nokia, ALCL.<br><br>
+        <strong>ALTERAR SENHA WEB - COMANDO PARA ALTERAR A SENHA WEB DA ONT:</strong><br>
+        <code>DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9::::PARAMNAME=InternetGatewayDevice.X_Authentication.Account.Password,PARAMVALUE="S°NUMBER (sernum)";</code>
+    </div>
+</div>
 
-PROVISIONAR ONU --> COMANDO PARA REALIZAR O PROVISIONAMENTO:
- 
-ENT-ONT::ONT-1-1-1-1-1::::DESC1="Descrição 1 (desc1)",DESC2="Descrição 2 (desc2)",SERNUM="S°NUMBER (sernum)",SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;ED-ONT::ONT-1-1-1-1-1:::::IS;ENT-ONTCARD::ONTCARD-1-1-1-1-1-14:::VEIP,1,0::IS;ENT-LOGPORT::ONTL2UNI-1-1-1-1-1-14-1:::;ED-ONTVEIP::ONTVEIP-1-1-1-1-1-14-1:::::IS;SET-QOS-USQUEUE::ONTL2UNIQ-1-1-1-1-1-14-1-0::::USBWPROFNAME=HSI_1G_UP;SET-VLANPORT::ONTL2UNI-1-1-1-1-1-14-1:::MAXNUCMACADR=4,CMITMAXNUMMACADDR=1;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,777:PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE="VLAN";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-2::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username,PARAMVALUE="Usuário PPPOE";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-3::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password,PARAMVALUE="Senha PPPOE";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9::::PARAMNAME=InternetGatewayDevice.X_Authentication.Account.Password,PARAMVALUE="S°NUMBER (sernum)";
-==================================================================================================================================================
-◐ Provisionar ONT Telefonia:
+<div class="accordion">
+    <button class="accordion-btn">Conferência de Caixa (Utilização Padrão)</button>
+    <div class="accordion-panel">
+        <strong>Conferência de Caixa</strong> &rarr; Utilize a ferramenta para comparar tabelas e visualizar resultados.<br>
+        Tabela Antes &rarr; Você ira copiar e colar a PON inteira da CTO que você está conferindo, mas, isso tem que ser feito antes de iniciar a conferência.<br>
+        Travar Tabela (Botão) &rarr; Aqui você vai pressionar somente depois de já ter colado a PON da conferência completa antes de começar.<br>
+        Tabela Depois &rarr; Será Utilizada apenas depois que o técnico retirar uma porta e você atualizar a PON no CRT, em seguida, ira colar o resultado aqui, dessa forma o sistema ira comparar ambas e identificar qual foi removida.<br><br>
+        <strong>Botões:</strong><br>
+        COMPARAR PORTA 1 &rarr; <br>
+        VOLTAR UMA PORTA &rarr; <br>
+        ANALISAR CLIENTES DOWN (TABELA 1) &rarr; <br><br>
+        <strong>Conferência Armazenada:</strong><br>
+        PORTA ATUAL:<br>
+        Porta &rarr; <br>
+        Primeira Tabela &rarr; <br>
+        Segunda Tabela &rarr; <br>
+        Ações &rarr; <br>
+    </div>
+</div>
 
-PROVISIONAR ONT - APENAS TELEFONIA
-Descrição 1 (desc1) --> Nome completo do cliente.
-Descrição 2 (desc2) --> Coloque a CTO, caso não tenha, coloque o PPPoE.
-S°NUMBER (sernum) --> Número de serial da ONT, como é Nokia, ALCL.
-Número do Telefone --> Número fixo do cliente, encontrado no Sipulse.
-Senha VoIP --> Senha do cliente, também é encontrada no Sipulse.
-VLANs por Cidade --> Selecione a VLAN da cidade em que a ONT se encontra.
+<div class="accordion">
+    <button class="accordion-btn">◪ Outras Opções (SSH) & (TL1)</button>
+    <div class="accordion-panel">
+        <strong>CONSULTAS BRIDGE ONT:</strong><br><br>
+        <b>Verificar Velocidade</b> &rarr; Para verificar as velocidades de download e upload do PPPoE.<br>
+        <code>show network-access aaa subscribers username "pppoe"</code> &rarr; Mostra os detalhes AAA (autenticação, autorização e contabilização) do usuário PPPoE, útil pra verificar se ele autenticou corretamente no RADIUS.<br><br>
+        <b>Verificar IP do PPPoE</b> &rarr; Para verificar o IP autenticado do PPPoE.<br>
+        <code>show subscriber user-name "pppoe"</code> &rarr; Exibe as informações completas da sessão PPPoE de um usuário, como IP, VLAN, interface e status da conexão.<br><br>
+        <b>Verificar PPPoE do IP</b> &rarr; Para verificar o PPPoE que o IP está autenticado<br>
+        <code>show subscriber address "IP"</code> &rarr; Mostra quem está usando um determinado IP, exibindo dados da sessão como login, interface e tempo conectado.<br><br>
+        <strong>OPERAÇÕES:</strong><br><br>
+        <b>Pesquisar PON:</b><br>
+        <code>show equipment ont status pon 1/1/1/1</code> &rarr; Mostra o status geral das ONTs conectadas à porta PON.<br><br>
+        <b>Pesquisar Alarmes:</b><br>
+        <code>show equipment ont operational-data 1/1/1/1/1 detail</code> &rarr; Exibe os alarmes e dados operacionais detalhados de uma ONT específica.<br><br>
+        <b>Reiniciar ONU (TL1):</b><br>
+        <code>INIT-SYS::ONT-1-1-1-1-1:::11;</code> &rarr; Reinicia a ONT remotamente pelo comando TL1.<br><br>
+        <b>ONU Solicitando Provisionamento:</b><br>
+        <code>show pon unprovision-onu</code> &rarr; Mostra ONUs conectadas fisicamente, mas ainda não provisionadas no sistema.<br><br>
+        <b>Verificar Fibra:</b><br>
+        <code>show equipment ont optics 1/1/1/1/1</code> &rarr; Exibe os níveis ópticos (RX/TX) e informações da fibra da ONT.<br><br>
+        <b>Desprovisionar ONU (TL1):</b><br>
+        <code>ED-ONT::ONT-1-1-1-1-1:::::OOS;DLT-ONT::ONT-1-1-1-1-1::;</code> &rarr; Remove a ONT da PON, tirando-a de serviço (OOS) e excluindo-a do sistema.
+    </div>
+</div>
 
-PROVISIONAR ONT TELEFONIA --> COMANDO PARA REALIZAR APENAS O PROVISIONAMENTO DO TELEFONE (FIXO AVULSO):
- 
-ENT-ONT::ONT-1-1-1-1-1::::DESC1="Descrição 1 (desc1)",DESC2="Descrição 2 (desc2)",SERNUM="S°NUMBER (sernum)",SWVERPLND=AUTO,OPTICSHIST=ENABLE,PLNDCFGFILE1=AUTO,DLCFGFILE1=AUTO,VOIPALLOWED=VEIP;ED-ONT::ONT-1-1-1-1-1:::::IS;ENT-ONTCARD::ONTCARD-1-1-1-1-1-14:::VEIP,1,0::IS;ENT-LOGPORT::ONTL2UNI-1-1-1-1-1-14-1:::;ED-ONTVEIP::ONTVEIP-1-1-1-1-1-14-1:::::IS;SET-QOS-USQUEUE::ONTL2UNIQ-1-1-1-1-1-14-1-0::::USBWPROFNAME=HSI_1G_UP;SET-VLANPORT::ONTL2UNI-1-1-1-1-1-14-1:::MAXNUCMACADR=4,CMITMAXNUMMACADDR=1;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,777:PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE="VLAN";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9::::PARAMNAME=InternetGatewayDevice.X_Authentication.Account.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-ONTCARD::ONTCARD-1-1-1-1-1-15:::POTS,2,0::IS;ENT-LOGPORT::ONTPOTS-1-1-1-1-1-15-1:::;ENT-LOGPORT::ONTPOTS-1-1-1-1-1-15-2:::;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.DirectoryNumber,PARAMVALUE="Número do Telefone";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName,PARAMVALUE="Número do Telefone";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword,PARAMVALUE="Senha VoIP";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.2.DirectoryNumber,PARAMVALUE="Número do Telefone";
-==================================================================================================================================================
-◪ Bridge ONT Nokia:
-
-BRIDGE ONT NOKIA
-Tipo de Bridge --> Aqui você seleciona qual Bridge ira realizar, se é Rede ou Voip.
-Porta LAN --> Define qual porta LAN o Bridge será realizado.
-Card Type --> Define qual Card Type utilizara para o Bridge ser realizado.
-Descrição 1 (desc1) --> Nome completo do cliente.
-Descrição 2 (desc2) --> Coloque a CTO, caso não tenha, coloque o PPPoE.
-S°NUMBER (sernum) --> Número de serial da ONT, como é Nokia, ALCL.
-VLAN Utilizada --> Selecione a VLAN da cidade em que a ONT se encontra.
-
-GERAR COMANDOS --> COMANDO PARA REALIZAR BRIDGE (É NECESSÁRIO QUE AO REALIZAR ESSE PROCEDIMENTO SEJA LANÇADO LINHA POR LINHA):
-
-1° PASSO -> DESPROVISIONAR ONT:
-configure equipment ont interface 1/1/"Slot/PON/Posição da ONT" admin-state down --> Desativa a ONT logicamente. 
-configure equipment ont no interface 1/1/"Slot/PON/Posição da ONT" --> Remove totalmente a ONT da OLT.
-
-2° PASSO -> PROVISIONAR ONT:
-configure equipment ont interface 1/1/"Slot/PON/Posição da ONT" sw-ver-pland auto desc1 "Descrição 1 (desc1)" desc2 "Descrição 2 (desc2)" sernum "S°NUMBER (sernum)" subslocid WILDCARD fec-up disable optics-hist enable sw-dnload-version disabled voip-allowed veip log-auth-pwd plain:** pland-cfgfile1 auto dnload-cfgfile1 auto planned-us-rate nominal-line-rate --> Cria a ONT com descrições, número de série, permissões e parâmetros básicos.
-
-configure equipment ont interface 1/1/"Slot/PON/Posição da ONT" admin-state up --> Ativa a ONT para operação.
-
-3° PASSO -> PORTA BRIDGE:
-configure equipment ont slot 1/1/"Slot/PON/Posição da ONT/Card Type" planned-card-type ethernet plndnumdataports 4 plndnumvoiceports 0 admin-state up --> Cria o card Ethernet com 4 portas de dados e sem portas de voz (não altera no Bridge Voip).
-
-configure qos interface 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" upstream-queue 0 bandwidth-profile name:HSI_1G_UP --> Define o perfil de upload (1 Gbps) e a prioridade de QoS (fila 0 para tráfego de dados e fila 5 para VoIP).
-
-configure interface port uni:1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" admin-up --> Ativa a porta LAN 1.
-configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" max-unicast-mac 12 max-committed-mac 1 --> Limita o número de MACs na porta.
-configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" vlan-id "VLAN Utilizada" --> Define a VLAN escolhida para essa porta.
-configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" pvid "VLAN Utilizada" --> Define a VLAN escolhida como VLAN padrão (untagged).
-
-4° PASSO -> Comando TL1:
-ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-"Slot-PON-Posição da ONT"-30::::PARAMNAME=InternetGatewayDevice.X_ASB_COM_EthPort.EthPort."Porta LAN".isTr069Domain,PARAMVALUE=false; --> Define que a porta LAN escolhida não será usada para TR-069 (somente uso do cliente).
-
-
-Diferenças entre Bridge de Rede e VoIP: O que muda entre os modos é a fila de prioridade do QoS (para rede é 0 e para VoIP é 5) e também a VLAN, que será diferente em cada caso.
-
-
-Verificar VLAN --> Verifica qual VLAN está configurada na porta onde foi realizado o Bridge.
-info configure bridge port 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" --> Mostra a configuração da porta de bridge, incluindo VLAN, PVID, limite de MACs e estado da porta.
-
-Verificar MAC --> Verifica se na porta onde foi realizado o Bridge já está linkando o MAC do equipamento que irá gerenciar a rede.
-show vlan bridge-port-fdb 1/1/"Slot/PON/Posição da ONT/Card Type/Porta LAN" --> Mostra a tabela de MACs aprendidos na porta, indicando quais dispositivos estão conectados e em qual VLAN.
-==================================================================================================================================================
-◈ Configurar Wi-Fi:
-
-CONFIGURAR REDE Wi-Fi
-Nome da Rede Wi-Fi --> Ira inserir o nome desejado da rede Wi-Fi.
-Senha da Rede Wi-Fi --> Ira inserir a senha desejada do Wi-Fi.
-
-ALTERAR NOME E SENHA - COMANDO PARA ALTERAR NOME E SENHA:
-DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID,PARAMVALUE="Nome da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.SSID,PARAMVALUE="Nome da Rede Wi-Fi_5G";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";
-
-ALTERAR APENAS NOME - COMANDO PARA ALTERAR APENAS O NOME:
-DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6;ENT-HGUTR069-
-SPARAM::HGUTR069SPARAM-1-1-1-1-1-4::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID,PARAMVALUE="Nome da Rede Wi-Fi";ENT-HGUTR069-
-SPARAM::HGUTR069SPARAM-1-1-1-1-1-6::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.SSID,PARAMVALUE="Nome da Rede Wi-Fi_5G";
-
-ALTERAR APENAS SENHA - COMANDO PARA ALTERAR APENAS A SENHA:
-DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-5::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-7::::PARAMNAME=InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.PreSharedKey.1.PreSharedKey,PARAMVALUE="Senha da Rede Wi-Fi";
-==================================================================================================================================================
-◐ Configurar Telefone:
-
-CONFIGURAR TELEFONE
-Porta do Telefone --> Selecionar a porta FXS onde será configurado o telefone (1 ou 2).
-Usuário SIP --> Número fixo do cliente, encontrado no Sipulse.
-Senha SIP --> Senha do cliente, também é encontrada no Sipulse.
-
-CONFIGURAR TELEFONE - COMANDO PARA CONFIGURAR A LINHA DO CLIENTE:
-SET-QOS-USQUEUE::ONTL2UNIQ-1-1-1-1-1-14-1-5::::USBWPROFNAME=HSI_1G_UP;ENT-VLANEGPORT::ONTL2UNI-1-1-1-1-1-14-1:::0,"VLAN":PORTTRANSMODE=SINGLETAGGED;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-10::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxy,PARAMVALUE=10.255.0.1;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-11::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServer,PARAMVALUE=10.255.0.1;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-12::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer,PARAMVALUE=10.255.0.1;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-13::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.UserAgentDomain,PARAMVALUE="sip.solucaonetwork.com";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-14::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".Enable,PARAMVALUE=Enabled;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-15::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".DirectoryNumber,PARAMVALUE="Usuário SIP";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-16::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".SIP.AuthUserName,PARAMVALUE="Usuário SIP";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-17::::PARAMNAME=InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line."Porta do Telefone".SIP.AuthPassword,PARAMVALUE="Senha SIP";
-==================================================================================================================================================
-◊ Alterar VLAN e PPPOE:
-
-ALTERAR VLAN PPPOE
-Usuário PPPOE --> Colocar o usuário PPPoE do cliente.
-Senha PPPOE --> Colocar a senha do PPPoE do cliente.
-VLAN --> Selecione a VLAN da cidade em que a ONT se encontra.
-
-ALTERAR VLAN E PPPOE - COMANDO PARA ALTERAR A VLAN E O PPPOE DA ONT:
-DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-2;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-3;ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-1::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_CT-COM_WANGponLinkConfig.VLANIDMark,PARAMVALUE="VLAN";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-2::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username,PARAMVALUE="Usuário PPPOE";ENT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-3::::PARAMNAME=InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password,PARAMVALUE="Senha PPPOE";
-==================================================================================================================================================
-◇ Alterar Senha Web:
-
-ALTERAR SENHA DE ACESSO WEB
-S°NUMBER (sernum) --> Número de serial da ONT, como é Nokia, ALCL.
-
-ALTERAR SENHA WEB - COMANDO PARA ALTERAR A SENHA WEB DA ONT:
-DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8;DLT-HGUTR069-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9;ENT-HGUTR069-
-SPARAM::HGUTR069SPARAM-1-1-1-1-1-8::::PARAMNAME=InternetGatewayDevice.X_Authentication.WebAccount.Password,PARAMVALUE="S°NUMBER (sernum)";ENT-HGUTR069-
-SPARAM::HGUTR069SPARAM-1-1-1-1-1-9::::PARAMNAME=InternetGatewayDevice.X_Authentication.Account.Password,PARAMVALUE="S°NUMBER (sernum)";
-==================================================================================================================================================
-Conferência de Caixa:
-
-Conferência de Caixa --> Utilize a ferramenta para comparar tabelas e visualizar resultados.
-Tabela Antes --> Você ira copiar e colar a PON inteira da CTO que você está conferindo, mas, isso tem que ser feito antes de iniciar a conferência.
-Travar Tabela (Botão) --> Aqui você vai pressionar somente depois de já ter colado a PON da conferência completa antes de começar.
-Tabela Depois --> Será Utilizada apenas depois que o técnico retirar uma porta e você atualizar a PON no CRT, em seguida, ira colar o resultado aqui, dessa forma o sistema ira comparar ambas e identificar qual foi removida.
-
-Botões:
-COMPARAR PORTA 1 --> 
-VOLTAR UMA PORTA --> 
-ANALISAR CLIENTES DOWN (TABELA 1) --> 
-
-Conferência Armazenada:
-PORTA ATUAL:
-Porta --> 
-Primeira Tabela --> 
-Segunda Tabela --> 
-Ações --> 
-==================================================================================================================================================
-◪ Outra Opções:
-
-CONSULTAS BRIDGE ONT:
-
-Verificar Velocidade --> Para verificar as velocidades de download e upload do PPPoE.
-show network-access aaa subscribers username "pppoe" --> Mostra os detalhes AAA (autenticação, autorização e contabilização) do usuário PPPoE, útil pra verificar se ele autenticou corretamente no RADIUS.
-
-Verificar IP do PPPoE --> Para verificar o IP autenticado do PPPoE.
-show subscriber user-name "pppoe" --> Exibe as informações completas da sessão PPPoE de um usuário, como IP, VLAN, interface e status da conexão.
-
-Verificar PPPoE do IP --> Para verificar o PPPoE que o IP está autenticado
-show subscriber address "IP" --> Mostra quem está usando um determinado IP, exibindo dados da sessão como login, interface e tempo conectado.
+<style>
 
 
-OPERAÇÕES: 
+.accordion {
+    width: 100%;
+    margin-bottom: 1em;
+}
+.accordion-btn {
+    background: #28d431;
+    color: #fff;
+    cursor: pointer;
+    padding: 16px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1em;
+    border-radius: 6px 6px 0 0;
+    transition: background 0.2s;
+}
+.accordion-btn:hover, .accordion-btn.active {
+    background: #003d6b;
+}
+.accordion-panel {
+    padding: 0 16px 16px 16px;
+    background: #f4f8fb;
+    display: none;
+    border-radius: 0 0 6px 6px;
+    border: 1px solid #cce0f5;
+    border-top: none;
+}
+.accordion-btn.active + .accordion-panel {
+    display: block;
+}
+code {
+    background: #eaeaea;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.98em;
+}
+</style>
 
-Pesquisar PON:
-show equipment ont status pon 1/1/1/1 --> Mostra o status geral das ONTs conectadas à porta PON.
-
-Pesquisar Alarmes:
-show equipment ont operational-data 1/1/1/1/1 detail --> Exibe os alarmes e dados operacionais detalhados de uma ONT específica.
-
-Reiniciar ONU (TL1):
-INIT-SYS::ONT-1-1-1-1-1:::11; --> Reinicia a ONT remotamente pelo comando TL1.
-
-ONU Solicitando Provisionamento:
-show pon unprovision-onu --> Mostra ONUs conectadas fisicamente, mas ainda não provisionadas no sistema.
-
-Verificar Fibra:
-show equipment ont optics 1/1/1/1/1 --> Exibe os níveis ópticos (RX/TX) e informações da fibra da ONT.
-
-Desprovisionar ONU (TL1):
-ED-ONT::ONT-1-1-1-1-1:::::OOS;DLT-ONT::ONT-1-1-1-1-1::; -->  Remove a ONT da PON, tirando-a de serviço (OOS) e excluindo-a do sistema.
-==================================================================================================================================================
-
+<script>
+// Accordion simples
+document.addEventListener('DOMContentLoaded', function() {
+    const accBtns = document.querySelectorAll('.accordion-btn');
+    accBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Fecha outros accordions se quiser comportamento exclusivo
+            accBtns.forEach(b => {
+                if (b !== btn) b.classList.remove('active');
+            });
+            // Alterna o atual
+            btn.classList.toggle('active');
+        });
+    });
+});
+</script>
 
 </body>
 </html>
